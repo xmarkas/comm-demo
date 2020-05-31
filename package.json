@@ -1,0 +1,24 @@
+{
+  "name": "calendar",
+  "version": "1.0.0",
+  "description": "calendar demo",
+  "author": "Mark",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "@fortawesome/free-solid-svg-icons": "^5.13.0",
+    "nuxt": "^2.0.0",
+    "nuxt-fontawesome": "^0.4.0",
+    "plivo-browser-sdk": "^2.1.29",
+    "vuex": "^3.4.0"
+  },
+  "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.13.0",
+    "@nuxtjs/vuetify": "^1.0.0"
+  }
+}
