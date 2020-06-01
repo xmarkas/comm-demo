@@ -37,7 +37,7 @@
           icon="phone"
           color="white"
           class="ml-2"
-          style="font-size:1rem"
+          style="font-size:1rem; transform:rotate(225deg)"
         />
       </v-btn>
     </div>
