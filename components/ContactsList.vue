@@ -1,8 +1,29 @@
 <template>
-  <div id="contact-list">
-    <v-list flat>
-      <v-subheader>Contacts</v-subheader>
+  <div id="contact-list" style="width:90%; margin: 0 auto; position: relative">
+    <!-- Add new contact -->
+    <!-- <v-btn fab small color="primary" style="position: absolute; right: 0"><v-icon>mdi-plus</v-icon></v-btn> -->
+    <AddContactForm />
+
+    <!-- Sort list -->
+    <v-list flat dense style="border-style: none none solid none; border-color:white" v-if="filteredContacts.length">
+     
+      <v-subheader>Matches</v-subheader>
       <v-list-item v-for="(item, i) in filteredContacts" :key="i">
+        <!-- avatar -->
+        <v-list-item-avatar>
+          <v-img :src="item.avatar"></v-img>
+        </v-list-item-avatar>
+        <!-- name -->
+        <v-list-item-content>
+          <v-list-item-title v-text="item.name"></v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+    </v-list>
+
+    <!-- List -->
+    <v-list flat dense>
+       <v-subheader>Contacts</v-subheader>
+      <v-list-item v-for="(item, i) in items" :key="i">
         <!-- avatar -->
         <v-list-item-avatar>
           <v-img :src="item.avatar"></v-img>
@@ -18,6 +39,7 @@
 
 <script>
 import { mapState } from "vuex";
+import AddContactForm from '~/components/AddContactForm.vue';
 
 export default {
   data: () => ({
@@ -39,7 +61,8 @@ export default {
         name: "Luz Palmer",
         avatar: "https://cdn.vuetifyjs.com/images/lists/4.jpg"
       }
-    ]
+    ],
+    queryList: []
   }),
   computed: {
     ...mapState({
@@ -49,7 +72,7 @@ export default {
       let targetInput = this.dialNumber;
       let targetList = [];
       this.items.forEach(contact => {
-        if (contact.name.toUpperCase().includes(targetInput.toUpperCase())) {
+        if (contact.name.toUpperCase().includes(targetInput.toUpperCase()) && targetInput.length) {
           targetList.push(contact);
         }
       });

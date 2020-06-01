@@ -91,7 +91,7 @@
             </v-badge>
           </div>
           <div
-            class="comm-msg"
+            :class="showLogin ? 'comm-msg mt-6':'comm-msg'"
             :style="showLogin ? 'position:absolute;top:5px' : ''"
           >
             <!-- pre login -->
