@@ -5,13 +5,23 @@
     <AddContactForm />
 
     <!-- Sort list -->
-    <v-list flat dense style="border-style: none none solid none; border-color:white" v-if="filteredContacts.length">
-     
+    <v-list
+      flat
+      dense
+      style="border-style: none none solid none; border-color:white"
+      v-if="filteredContacts().length"
+    >
       <v-subheader>Matches</v-subheader>
-      <v-list-item v-for="(item, i) in filteredContacts" :key="i">
+      <v-list-item v-for="(item, i) in filteredContacts()" :key="i">
         <!-- avatar -->
-        <v-list-item-avatar>
+        <v-list-item-avatar v-if="item.avatar">
           <v-img :src="item.avatar"></v-img>
+        </v-list-item-avatar>
+        <!-- no avatar -->
+        <v-list-item-avatar v-if="!item.avatar">
+          <v-btn :disabled="true" fab icon small class="bg-white"
+            ><font-awesome-icon icon="user" color="dimgray" class="fa-2x"
+          /></v-btn>
         </v-list-item-avatar>
         <!-- name -->
         <v-list-item-content>
@@ -22,12 +32,19 @@
 
     <!-- List -->
     <v-list flat dense>
-       <v-subheader>Contacts</v-subheader>
-      <v-list-item v-for="(item, i) in items" :key="i">
+      <v-subheader>Contacts</v-subheader>
+      <v-list-item v-for="(item, i) in contacts" :key="i">
         <!-- avatar -->
-        <v-list-item-avatar>
+        <v-list-item-avatar v-if="item.avatar">
           <v-img :src="item.avatar"></v-img>
         </v-list-item-avatar>
+        <!-- no avatar -->
+        <v-list-item-avatar v-if="!item.avatar">
+          <v-btn :disabled="true" fab icon small class="bg-white"
+            ><font-awesome-icon icon="user" color="dimgray" class="fa-2x"
+          /></v-btn>
+        </v-list-item-avatar>
+
         <!-- name -->
         <v-list-item-content>
           <v-list-item-title v-text="item.name"></v-list-item-title>
@@ -37,42 +54,38 @@
   </div>
 </template>
 
+<style>
+.bg-white {
+  background-color: white;
+}
+</style>
+
 <script>
 import { mapState } from "vuex";
-import AddContactForm from '~/components/AddContactForm.vue';
+import AddContactForm from "~/components/AddContactForm.vue";
 
 export default {
+  components: {
+    AddContactForm
+  },
   data: () => ({
-    items: [
-      {
-        active: true,
-        name: "Jano Smith",
-        avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg"
-      },
-      {
-        name: "Wes Vega",
-        avatar: "https://cdn.vuetifyjs.com/images/lists/2.jpg"
-      },
-      {
-        name: "Naomi Blackstone",
-        avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg"
-      },
-      {
-        name: "Luz Palmer",
-        avatar: "https://cdn.vuetifyjs.com/images/lists/4.jpg"
-      }
-    ],
     queryList: []
   }),
   computed: {
     ...mapState({
-      dialNumber: state => state.phone.dialNumber
-    }),
+      dialNumber: state => state.phone.dialNumber,
+      contacts: state => state.phone.contacts
+    })
+  },
+  methods: {
     filteredContacts: function() {
       let targetInput = this.dialNumber;
       let targetList = [];
-      this.items.forEach(contact => {
-        if (contact.name.toUpperCase().includes(targetInput.toUpperCase()) && targetInput.length) {
+      this.contacts.forEach(contact => {
+        if (
+          contact.name.toUpperCase().includes(targetInput.toUpperCase()) &&
+          targetInput.length
+        ) {
           targetList.push(contact);
         }
       });
