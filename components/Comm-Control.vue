@@ -91,7 +91,7 @@
             </v-badge>
           </div>
           <div
-            :class="showLogin ? 'comm-msg mt-6':'comm-msg'"
+            
             :style="showLogin ? 'position:absolute;top:5px' : ''"
           >
             <!-- pre login -->
@@ -139,7 +139,7 @@
   </v-card>
 </template>
 
-<style scoped>
+<style>
 .comm-card {
   height: 80px;
   background: aliceblue;
