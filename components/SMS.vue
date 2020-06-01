@@ -3,7 +3,11 @@
     <v-col cols="4">
       <div id="chats">
         <v-list style="background-color: transparent">
-          <v-list-item  v-for="(item, i) in items" :key="i" :class="item.active ? 'chat-item chat-active':'chat-item'">
+          <v-list-item
+            v-for="(item, i) in items"
+            :key="i"
+            :class="item.active ? 'chat-item chat-active' : 'chat-item'"
+          >
             <!-- avatar -->
             <v-list-item-avatar>
               <v-img :src="item.avatar"></v-img>
@@ -12,7 +16,7 @@
             <v-list-item-content>
               <v-list-item-title
                 v-text="item.name"
-                :style="item.active ? 'color: white':'color: black'"
+                :style="item.active ? 'color: white' : 'color: black'"
               ></v-list-item-title>
             </v-list-item-content>
           </v-list-item>
@@ -29,11 +33,17 @@
             :class="chat.direction === 'out' ? 'flex-row-reverse' : ''"
           >
             <!-- avatar -->
-
             <v-list-item-avatar
               :class="chat.direction === 'out' ? 'out-avatar' : ''"
             >
-              <v-img :src="chat.avatar"></v-img>
+              <v-img
+                :src="require('~/assets/mark_profile_img.png')"
+                v-if="chat.avatar[0] === '~'"
+              ></v-img>
+              <v-img
+                :src="chat.avatar"
+                v-if="chat.avatar[0] === 'h'"
+              ></v-img>
             </v-list-item-avatar>
             <!-- msg -->
             <v-list-item-content
@@ -81,7 +91,7 @@
 }
 
 .chat-active {
-    background-color: #00b75e!important;
+  background-color: #00b75e !important;
 }
 
 #message-list {
@@ -161,7 +171,7 @@ export default {
         this.chats.push({
           msg: ev.target.value,
           direction: "out",
-          avatar: "/mark_profile_img.png"
+          avatar: "~/assets/mark_profile_img.png"
         });
         ev.target.value = ""; // Clear input
 
@@ -219,8 +229,8 @@ export default {
         direction: "in",
         avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg"
       },
-      { msg: "hey there!", direction: "out", avatar: "/mark_profile_img.png" },
-      { msg: "What's up?", direction: "out", avatar: "/mark_profile_img.png" },
+      { msg: "hey there!", direction: "out", avatar: "~/assets/mark_profile_img.png" },
+      { msg: "What's up?", direction: "out", avatar: "~/assets/mark_profile_img.png" },
       {
         msg:
           "Can you help me figure out this template, we have about 7 hours left till we are heading out and I'd really like to get this done!",
